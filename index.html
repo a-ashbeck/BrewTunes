@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Brew Tunes</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 	<script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
 	<script src="assets/javascript/app.js"></script>
 </head>
@@ -12,16 +14,75 @@
 	<div class="jumbotron">
 		<h1 class="text-center">Brew Tunes</h1>
 		<p class="text-center text-lead">
-			The First and Best at Beer and Music Pairings
+			Your First & Best Choice at Beer and Music Pairings
 		</p>
 	</div>
 	<div class="container">
 		<div class="row">
+			<div class="form-group col-md-12">
+				<iframe class="embed-responsive-item col-md-12 col-sm-12 col-xs-12" src="http://open.spotify.com/user/1275642783/playlist/2LuO1sy6g2YMN8m8AQtsdD" height="380" frameborder="0" allowtransparency="true"></iframe>
+			</div>
+		</div>
 
+		<div class="row">
+			<div class="form-group col-md-4">
+				<form class="form-horizontal">
+				  <fieldset>
+				    <legend class="text-center">Enter Your Beer</legend>
+				    <div class="form-group">
+				      <div class="col-lg-12">
+				        <input type="text" class="form-control" id="inputBeer" placeholder="BEER!">
+				      </div>
+				    </div>
+				    <div class="form-group">
+				      <div class="col-lg-12">
+				        <button type="submit" class="btn btn-info btn-block">Get some music!</button>
+				      </div>
+				    </div>
+				  </fieldset>
+				</form>
+			</div>
+
+			<div class="form-group col-md-4">
+				<legend class="text-center">About</legend>
+				<p>Bacon ipsum dolor amet turkey sausage doner beef ham hock spare ribs. Swine hamburger pastrami venison porchetta ham. Short loin cupim ground round, short ribs biltong tongue leberkas landjaeger kevin hamburger. T-bone pork fatback porchetta cow capicola.</p>
+			</div>
+
+			<div class="form-group col-md-4">
+				<table class="table table-striped table-hover ">
+					<legend class="text-center">Recent Searches</legend>
+				  <tbody>
+				    <tr class="info">
+				      <td>1</td>
+				      <td>BEER</td>
+				      <td>PLAYLIST</td>
+				    </tr>
+				    <tr class="success">
+				      <td>2</td>
+				      <td>BEER</td>
+				      <td>PLAYLIST</td>
+				    </tr>
+				    <tr class="danger">
+				      <td>3</td>
+				      <td>BEER</td>
+				      <td>PLAYLIST</td>
+				    </tr>
+				    <tr class="warning">
+				      <td>4</td>
+				      <td>BEER</td>
+				      <td>PLAYLIST</td>
+				    </tr>
+				    <tr class="active">
+				      <td>5</td>
+				      <td>BEER</td>
+				      <td>PLAYLIST</td>
+				    </tr>
+				  </tbody>
+				</table> 
+			</div>
 		</div>
 	</div>
 
-
-	<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+	
 </body>
 </html>
