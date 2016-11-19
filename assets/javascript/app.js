@@ -1,5 +1,3 @@
-// The business
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyCtdaFgW6hk1SB-pasoWL19J8HuzeSZSo0",
@@ -19,6 +17,18 @@ var beerName = '';
 var ratingCount = '';
 var ratingScore = '';
 var genre = '';
+
+function hidePlaylist() {
+	$('#playlist').hide();
+}
+
+function resetFormField() {
+	$('#inputBeer').val('');
+}
+
+function setPlaylistURL() {
+	$('iframe').attr('src', playlistURL)
+}
 
 // Untappd API
 var CLIENTID = 'A9F55BC3824C82CA5DC0FBC018240C4E61ED09A1';
