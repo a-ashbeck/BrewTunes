@@ -19,8 +19,8 @@ var ratingScore = '';
 var genre = '';
 
 function hidePlaylist() {
-		$('#playlist').hide();
-	}
+	$('#playlist').hide();
+}
 
 function resetFormField() {
 	$('#inputBeer').val('');
