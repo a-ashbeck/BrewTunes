@@ -1,12 +1,130 @@
 input {
-	text-align: center;
+    text-align: center;
 }
 
 .jumbotron p {
-	font-size: 13px;
+    font-size: 13px;
 }
 
 iframe {
-	margin-bottom: 60px;
-	margin-top: 10px;
+    margin-bottom: 60px;
+    margin-top: 10px;
+}
+
+@import url(http://fonts.googleapis.com/css?family=Lato:700,900);
+#container {
+    height: 370px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    top: -20px;
+    width: 260px;
+}
+
+#container div {
+    position: absolute;
+}
+
+#glass {
+    border: 10px solid #FFF;
+    border-top: 0;
+    border-radius: 0 0 30px 30px;
+    height: 200px;
+    left: 14px;
+    bottom: 0;
+    width: 160px;
+    margin-left: 35px;
+    margin-bottom: 40px;
+}
+
+#handle {
+    height: 140px;
+    width: 60px;
+    border-radius: 0 90px 90px;
+    border: 20px solid #fefefe;
+    border-left: 10px solid #fefefe;
+    -moz-border-radius: 0 90px 90px 0;
+    -webkit-border-radius: 0 90px 90px 0;
+    margin-left: 140px;
+    margin-top: 20px;
+}
+
+#liquid {
+    background-color: #edaf32;
+    border: 0px solid #fefefe;
+    border-radius: 0 0 20px 20px;
+    bottom: 0;
+    height: 0px;
+    overflow: hidden;
+    width: 140px;
+}
+
+
+/* Foam */
+
+.beer-foam {
+    position: absolute;
+    z-index: 999;
+}
+
+.foam-1,
+.foam-2,
+.foam-3,
+.foam-4,
+.foam-5,
+.foam-6,
+.foam-7 {
+    float: left;
+    position: absolute;
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #fefefe;
+}
+
+.foam-1 {
+    top: -30px;
+    left: -20px;
+}
+
+.foam-2 {
+    top: -35px;
+    left: 15px;
+}
+
+.foam-3 {
+    top: -25px;
+    left: 50px;
+}
+
+.foam-4 {
+    top: -35px;
+    left: 80px;
+}
+
+.foam-5 {
+    top: -30px;
+    left: 110px;
+}
+
+
+/* Drunk Text */
+
+.animated {
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 5s;
+    -moz-animation-duration: 5s;
+    animation-duration: 5s;
+    -webkit-animation-delay: 3.5s;
+    -moz-animation-delay: 3.5s;
+    animation-delay: 3.5s;
+}
+
+.animated.drunk {
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    animation-duration: 2s;
 }
