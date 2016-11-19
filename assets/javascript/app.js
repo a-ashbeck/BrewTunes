@@ -11,23 +11,33 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // some global variables
-var input = 'bud'; //$('#inputBeer').val().trim();
+var input = '';
 var beerID = '';
 var beerName = '';
 var ratingCount = '';
 var ratingScore = '';
 var genre = '';
+var playlistURL = '';
 
 function hidePlaylist() {
 	$('#playlist').hide();
 }
 
+function showPlaylist() {
+	$('#playlist').show();
+}
+
 function resetFormField() {
-	$('#inputBeer').val('');
+	$('#input-beer').val('');
 }
 
 function setPlaylistURL() {
-	$('iframe').attr('src', playlistURL)
+	console.log('set: ' + playlistURL)
+	$('iframe').attr('src', playlistURL);
+}
+
+function displayInputBeer() {
+	$('#entered-beer').html(input);
 }
 
 // Untappd API
@@ -44,14 +54,16 @@ function queryURL(queryString) {
          '&client_secret=' + CLIENTSECRET;
 }
 
-
 $(document).on('ready', function() {
-  // $(document).on('click', '#submit', function() {
+	hidePlaylist();
+
+  $(document).on('click', '#submit', function() {
+  	input = $('#input-beer').val().trim();
+  	displayInputBeer();
     fetchBeers(input);
 
-
     return false;
-  // });
+  });
 });
 
 function fetchBeers(input) {
@@ -98,5 +110,8 @@ function fetchPlaylist(genre) {
   }).done(function(response) {
     playlistURL = response.external_urls.spotify;
     console.log(playlistURL);
+    resetFormField();
+    setPlaylistURL();
+    showPlaylist();
   });
 }
