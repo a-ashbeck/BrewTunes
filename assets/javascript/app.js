@@ -18,6 +18,8 @@ var ratingCount = '';
 var ratingScore = '';
 var genre = '';
 var playlistURL = '';
+var playlistName = '';
+var searches = {};
 
 function hidePlaylist() {
 	$('#playlist').hide();
@@ -108,10 +110,19 @@ function fetchPlaylist(genre) {
     url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
     dataType: 'json'
   }).done(function(response) {
-    playlistURL = response.external_urls.spotify;
+  	playlistName = response.name;
+  	console.log(response);
+    playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
     console.log(playlistURL);
     resetFormField();
     setPlaylistURL();
     showPlaylist();
+    searches = {
+			beerInput: input,
+			beerReturned: beerName,
+			playlist: playlistName
+		};
+
+		database.ref().push(searches);
   });
 }
