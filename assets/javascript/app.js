@@ -49,7 +49,6 @@ function resetFormField() {
 }
 
 function setPlaylistURL() {
-    console.log('set: ' + playlistURL)
     $('iframe').attr('src', playlistURL);
 }
 
@@ -84,12 +83,12 @@ function load() {
         }, 0).fadeIn(1000).show(0);
     return false;
 }
-$(document).on('ready', function () {
+$(document).on('ready', function() {
     hidePlaylist();
     hideLoad();
     hideError();
     $('.beer-foam').hide();
-    $(document).on('click', '#submit', function () {
+    $(document).on('click', '#submit', function() {
         hideError(); // in case there was an error on a previous submission
         load();
         input = $('#input-beer').val().trim();
@@ -104,15 +103,13 @@ function fetchBeers(input) {
         type: 'GET',
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         if (response.response.beers.count === 0) {
             showError();
         } else {
             var beer = response.response.beers.items[0];
             beerID = beer.beer.bid;
             beerName = beer.beer.beer_name;
-            console.log(beerID);
-            console.log(beerName);
             fetchSpecificBeer(beerID);
         }
     });
@@ -123,11 +120,9 @@ function fetchSpecificBeer(beerID) {
         type: 'GET',
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
-        console.log(ratingCount);
-        console.log(ratingScore);
         if (ratingCount && ratingScore) {
             genres = ['indie', 'rock', 'country', 'metal'];
             genre = genres[Math.floor(Math.random() * 4)];
@@ -137,25 +132,23 @@ function fetchSpecificBeer(beerID) {
 }
 
 function fetchPlaylist(genre) {
-  $.ajax({
-    type: 'GET',
-    url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
-    dataType: 'json'
-  }).done(function(response) {
-  	playlistName = response.name;
-  	console.log(response);
-    playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
-    console.log(playlistURL);
-    resetFormField();
-    setPlaylistURL();
-    showPlaylist();
-    searches = {
-		beerInput: input,
-		beerReturned: beerName,
-		playlist: playlistName,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-	};
+    $.ajax({
+        type: 'GET',
+        url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
+        dataType: 'json'
+    }).done(function(response) {
+        playlistName = response.name;
+        playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
+        resetFormField();
+        setPlaylistURL();
+        showPlaylist();
+        searches = {
+            beerInput: input,
+            beerReturned: beerName,
+            playlist: playlistName,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        };
 
-	database.ref().push(searches);
-  });
+        database.ref().push(searches);
+    });
 }
