@@ -11,7 +11,9 @@ iframe {
     margin-top: 10px;
 }
 
+/* loading screen */
 @import url(http://fonts.googleapis.com/css?family=Lato:700,900);
+
 #container {
     height: 370px;
     margin: 0 auto;
@@ -58,7 +60,6 @@ iframe {
     overflow: hidden;
     width: 140px;
 }
-
 
 /* Foam */
 
@@ -121,10 +122,4 @@ iframe {
     -webkit-animation-delay: 3.5s;
     -moz-animation-delay: 3.5s;
     animation-delay: 3.5s;
-}
-
-.animated.drunk {
-    -webkit-animation-duration: 2s;
-    -moz-animation-duration: 2s;
-    animation-duration: 2s;
 }
