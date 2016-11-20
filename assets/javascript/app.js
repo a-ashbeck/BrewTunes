@@ -7,6 +7,7 @@ var config = {
     messagingSenderId: "144484245094"
 };
 firebase.initializeApp(config);
+// reference firebase database
 var database = firebase.database();
 // some global variables
 var input = '';
@@ -27,12 +28,20 @@ function hideLoad() {
     $('#load').hide();
 }
 
+function hideError() {
+    $('#error').hide();
+}
+
 function showPlaylist() {
     $('#playlist').show();
 }
 
 function showLoad() {
     $('#load').show();
+}
+
+function showError() {
+    $('#error').show();
 }
 
 function resetFormField() {
@@ -78,8 +87,10 @@ function load() {
 $(document).on('ready', function () {
     hidePlaylist();
     hideLoad();
+    hideError();
     $('.beer-foam').hide();
     $(document).on('click', '#submit', function () {
+        hideError(); // in case there was an error on a previous submission
         load();
         input = $('#input-beer').val().trim();
         displayInputBeer();
@@ -94,12 +105,16 @@ function fetchBeers(input) {
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
         dataType: 'json'
     }).done(function (response) {
-        var beer = response.response.beers.items[0];
-        beerID = beer.beer.bid;
-        beerName = beer.beer.beer_name;
-        console.log(beerID);
-        console.log(beerName);
-        fetchSpecificBeer(beerID);
+        if (response.response.beers.count === 0) {
+            showError();
+        } else {
+            var beer = response.response.beers.items[0];
+            beerID = beer.beer.bid;
+            beerName = beer.beer.beer_name;
+            console.log(beerID);
+            console.log(beerName);
+            fetchSpecificBeer(beerID);
+        }
     });
 }
 
@@ -135,11 +150,12 @@ function fetchPlaylist(genre) {
     setPlaylistURL();
     showPlaylist();
     searches = {
-			beerInput: input,
-			beerReturned: beerName,
-			playlist: playlistName
-		};
+		beerInput: input,
+		beerReturned: beerName,
+		playlist: playlistName,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+	};
 
-		database.ref().push(searches);
+	database.ref().push(searches);
   });
 }
