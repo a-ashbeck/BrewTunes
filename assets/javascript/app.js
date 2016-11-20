@@ -83,6 +83,7 @@ function load() {
         }, 0).fadeIn(1000).show(0);
     return false;
 }
+
 $(document).on('ready', function() {
     hidePlaylist();
     hideLoad();
@@ -93,12 +94,12 @@ $(document).on('ready', function() {
         load();
         input = $('#input-beer').val().trim();
         displayInputBeer();
-        fetchBeers(input);
+        fetchBeers();
         return false;
     });
 });
 
-function fetchBeers(input) {
+function fetchBeers() {
     $.ajax({
         type: 'GET',
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
@@ -110,12 +111,12 @@ function fetchBeers(input) {
             var beer = response.response.beers.items[0];
             beerID = beer.beer.bid;
             beerName = beer.beer.beer_name;
-            fetchSpecificBeer(beerID);
+            fetchSpecificBeer();
         }
     });
 }
 
-function fetchSpecificBeer(beerID) {
+function fetchSpecificBeer() {
     $.ajax({
         type: 'GET',
         url: queryURL(specificQueryString(beerID)),
@@ -127,11 +128,11 @@ function fetchSpecificBeer(beerID) {
             genres = ['indie', 'rock', 'country', 'metal'];
             genre = genres[Math.floor(Math.random() * 4)];
         }
-        fetchPlaylist(genre);
+        fetchPlaylist();
     });
 }
 
-function fetchPlaylist(genre) {
+function fetchPlaylist() {
     $.ajax({
         type: 'GET',
         url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
