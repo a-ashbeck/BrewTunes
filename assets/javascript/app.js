@@ -22,6 +22,7 @@ var searches = {};
 
 function hidePlaylist() {
     $('#playlist').hide();
+    playlistURL = '';
 }
 
 function hideLoad() {
@@ -107,6 +108,8 @@ function fetchBeers() {
     }).done(function(response) {
         if (response.response.beers.count === 0) {
             showError();
+            resetFormField();
+            hidePlaylist();
         } else {
             var beer = response.response.beers.items[0];
             beerID = beer.beer.bid;
