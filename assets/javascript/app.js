@@ -29,8 +29,12 @@ function hideLoad() {
     $('#load').hide();
 }
 
-function hideError() {
-    $('#error').hide();
+function hideNoBeerFoundError() {
+    $('#no-beer-error').hide();
+}
+
+function hideInvalidCharacterError() {
+    $('#invalid-character-error').hide();
 }
 
 function showPlaylist() {
@@ -41,8 +45,12 @@ function showLoad() {
     $('#load').show();
 }
 
-function showError() {
-    $('#error').show();
+function showNoBeerFoundError() {
+    $('#no-beer-error').show();
+}
+
+function showInvalidCharacterError() {
+    $('#invalid-character-error').show();
 }
 
 function resetFormField() {
@@ -85,18 +93,26 @@ function load() {
 $(document).on('ready', function() {
     hidePlaylist();
     hideLoad();
-    hideError();
+    hideNoBeerFoundError();
+    hideInvalidCharacterError();
     $('.beer-foam').hide();
     $(document).on('click', '#submit', function() {
-        hideError(); // in case there was an error on a previous submission
+        hideNoBeerFoundError(); // in case there was an error on a previous submission
+        hideInvalidCharacterError(); // in case there was an error on a previous submission
         showLoad();
         load();
         input = $('#input-beer').val().trim();
-        displayInputBeer();
-        setTimeout(function() {
-            fetchBeers();
-        }, 5000);
-        return false;
+
+        if (input.match(/[\w\- ]/)) {
+        	displayInputBeer();
+	        setTimeout(function() {
+	            fetchBeers();
+	        }, 5000);
+        } else {
+        	showInvalidCharacterError();
+				}
+	      
+	      return false;
     });
 });
 
@@ -107,7 +123,7 @@ function fetchBeers() {
         dataType: 'json'
     }).done(function(response) {
         if (response.response.beers.count === 0) {
-            showError();
+            showNoBeerFoundError();
             resetFormField();
             hidePlaylist();
         } else {
