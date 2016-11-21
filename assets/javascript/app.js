@@ -103,13 +103,15 @@ $(document).on('ready', function() {
         load();
         input = $('#input-beer').val().trim();
 
-        if (input.match(/[\w\- ]/)) {
+        if (input.match(/^[\w\-\s]+$/)) {
         	displayInputBeer();
 	        setTimeout(function() {
 	            fetchBeers();
 	        }, 5000);
         } else {
         	showInvalidCharacterError();
+        	resetFormField();
+          hidePlaylist();
 				}
 	      
 	      return false;
