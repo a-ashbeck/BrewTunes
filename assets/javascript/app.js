@@ -72,15 +72,12 @@ function queryURL(queryString) {
 }
 
 function load() {
-    showLoad();
-    $('#liquid') // I Said Fill 'Er Up!
-        .delay(800).animate({
-            height: '190px'
-        }, 2500);
-    $('.beer-foam') // Keep that Foam Rollin' Toward the Top! Yahooo!
-        .hide().delay(3000).animate({
-            bottom: '200px'
-        }, 0).fadeIn(1000).show(0);
+    $('#liquid').animate({
+        height: '190px'
+    }, 2500);
+    $('.beer-foam').hide().delay(2100).animate({
+        bottom: '200px'
+    }, 0).fadeIn(1000).show(0);
     return false;
 }
 
@@ -91,10 +88,13 @@ $(document).on('ready', function() {
     $('.beer-foam').hide();
     $(document).on('click', '#submit', function() {
         hideError(); // in case there was an error on a previous submission
+        showLoad();
         load();
         input = $('#input-beer').val().trim();
         displayInputBeer();
-        fetchBeers();
+        setTimeout(function() {
+            fetchBeers();
+        }, 5000);
         return false;
     });
 });
@@ -142,6 +142,7 @@ function fetchPlaylist() {
         playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
         resetFormField();
         setPlaylistURL();
+        hideLoad();
         showPlaylist();
         searches = {
             beerInput: input,
