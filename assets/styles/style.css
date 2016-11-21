@@ -108,18 +108,3 @@ iframe {
     top: -30px;
     left: 110px;
 }
-
-
-/* Drunk Text */
-
-.animated {
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
-    animation-duration: 5s;
-    -webkit-animation-delay: 3.5s;
-    -moz-animation-delay: 3.5s;
-    animation-delay: 3.5s;
-}
