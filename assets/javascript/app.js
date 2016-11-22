@@ -80,41 +80,42 @@ function queryURL(queryString) {
     return 'https://api.untappd.com/v4/' + queryString + 'client_id=' + CLIENTID + '&client_secret=' + CLIENTSECRET;
 }
 
-function load() {
-    $('#liquid').animate({
-        height: '190px'
-    }, 2500);
-    $('.beer-foam').hide().delay(2100).animate({
-        bottom: '200px'
-    }, 0).fadeIn(1000).show(0);
+function stopAnimate() {
+    $('#loader').removeClass('is-animated');
+    $('#form-row').show();
+}
+
+function animate() {
+    $('#loader').addClass('is-animated');
+    $('#form-row').hide();
     return false;
 }
 
-$(document).on('ready', function() {
+function reset() {
     hidePlaylist();
     hideLoad();
     hideNoBeerFoundError();
     hideInvalidCharacterError();
-    $('.beer-foam').hide();
-    $(document).on('click', '#submit', function() {
-        hideNoBeerFoundError(); // in case there was an error on a previous submission
-        hideInvalidCharacterError(); // in case there was an error on a previous submission
-        showLoad();
-        load();
-        input = $('#input-beer').val().trim();
+}
 
+$(document).on('ready', function () {
+    reset();
+    $(document).on('click', '#submit', function () {
+        reset(); // for subsequent searches
+        input = $('#input-beer').val().trim();
         if (input.match(/^[\w\-\s]+$/)) {
-        	displayInputBeer();
-	        setTimeout(function() {
-	            fetchBeers();
-	        }, 5000);
+            showLoad();
+            animate();
+            displayInputBeer();
+            setTimeout(function () {
+                fetchBeers();
+            }, 5000);
         } else {
-        	showInvalidCharacterError();
-        	resetFormField();
-          hidePlaylist();
-				}
-	      
-	      return false;
+            showInvalidCharacterError();
+            resetFormField();
+            hidePlaylist();
+        }
+        return false;
     });
 });
 
@@ -123,8 +124,9 @@ function fetchBeers() {
         type: 'GET',
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
         dataType: 'json'
-    }).done(function(response) {
+    }).done(function (response) {
         if (response.response.beers.count === 0) {
+            hideLoad();
             showNoBeerFoundError();
             resetFormField();
             hidePlaylist();
@@ -142,7 +144,7 @@ function fetchSpecificBeer() {
         type: 'GET',
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
-    }).done(function(response) {
+    }).done(function (response) {
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
         if (ratingCount && ratingScore) {
@@ -158,12 +160,13 @@ function fetchPlaylist() {
         type: 'GET',
         url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
         dataType: 'json'
-    }).done(function(response) {
+    }).done(function (response) {
         playlistName = response.name;
         playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
         resetFormField();
         setPlaylistURL();
         hideLoad();
+        stopAnimate();
         showPlaylist();
         searches = {
             beerInput: input,
