@@ -11,6 +11,10 @@ iframe {
     margin-top: 10px;
 }
 
+#scrolly {
+    height: 250px;
+    overflow-y: scroll !important;
+}
 
 /* loading screen */
 
