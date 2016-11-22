@@ -170,6 +170,18 @@ function fetchPlaylist() {
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
 
-        database.ref().push(searches);
+        database.ref().push(searches);   
     });
 }
+
+database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
+    var recentBeer = childSnapshot.val().beerReturned;
+    var recentPlaylist = childSnapshot.val().playlist;
+    var tableRow = $('<tr>');
+    var recentBeerCell = $('<td>').html(recentBeer);
+    var recentPlaylistCell = $('<td>').html(recentPlaylist);
+
+    tableRow.append(recentBeerCell).append(recentPlaylistCell);
+    $('#beer-list').prepend(tableRow); 
+});
+
