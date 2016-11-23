@@ -97,7 +97,6 @@ function reset() {
     hideNoBeerFoundError();
     hideInvalidCharacterError();
 }
-
 $(document).on('ready', function () {
     reset();
     $(document).on('click', '#submit', function () {
@@ -148,7 +147,26 @@ function fetchSpecificBeer() {
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
         if (ratingCount && ratingScore) {
-            genres = ['indie', 'rock', 'country', 'metal'];
+            genresTier1 = ['rap', 'rock', 'pop', 'country', 'indie'];
+            genresTier2 = ['hip-hop', 'classic rock', 'dance pop', 'bluegrass', 'Jazz'];
+            genresTier3 = ['old school rap', 'rock & roll', 'bubblegum pop', 'traditional country', 'edm'];
+            genresTier4 = ['alternative rap', 'hard rock', 'electro pop', 'alternative country', 'disco'];
+            genresTier5 = ['gangsta rap', 'death metal', 'synthpop', 'outlaw country', 'techno'];
+            if (0 < ratingCount <= 50000) {
+                genres = genresTier5;
+            }
+            if (50000 < ratingCount <= 100000) {
+                genres = genresTier4;
+            }
+            if (10000 < ratingCount <= 150000) {
+                genres = genresTier3;
+            }
+            if (150000 < ratingCount <= 200000) {
+                genres = genresTier2;
+            }
+            if (ratingCount > 200000) {
+                genres = genresTier1;
+            }
             genre = genres[Math.floor(Math.random() * 4)];
         }
         fetchPlaylist();
@@ -174,19 +192,15 @@ function fetchPlaylist() {
             playlist: playlistName,
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
-
-        database.ref().push(searches);   
+        database.ref().push(searches);
     });
 }
-
-database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
+database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function (childSnapshot, prevChildKey) {
     var recentBeer = childSnapshot.val().beerReturned;
     var recentPlaylist = childSnapshot.val().playlist;
     var tableRow = $('<tr>');
     var recentBeerCell = $('<td>').html(recentBeer);
     var recentPlaylistCell = $('<td>').html(recentPlaylist);
-
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
-    $('#beer-list').prepend(tableRow); 
+    $('#beer-list').prepend(tableRow);
 });
-
