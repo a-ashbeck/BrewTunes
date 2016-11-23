@@ -25,11 +25,21 @@
         <div id="invalid-character-error" class="alert alert-danger">Please only enter letters, numbers, spaces, or hyphens into the search!</div>
         <div id="playlist" class="row">
             <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                <h2>Your Beer Search:</h2>
-                <h3 id="entered-beer"></h3>
+                <iframe class="embed-responsive-item col-md-12 col-sm-12 col-xs-12" src="" height="380" frameborder="0" allowtransparency="true"></iframe>
             </div>
             <div class="form-group col-md-6 col-sm-12 col-xs-12">
-                <iframe class="embed-responsive-item col-md-12 col-sm-12 col-xs-12" src="" height="380" frameborder="0" allowtransparency="true"></iframe>
+                <div class="row">
+                    <div class="col-xs-1 col-md-0"></div>
+                    <div class="col-xs-10 col-md-12">
+                        <h2>Your Beer Search:</h2>
+                        <h3 id="entered-beer"></h3>
+                        <h2>Beer Returned:</h2>
+                        <img id="beer-label" src="" width="100" />
+                        <h3 id="beer-name"></h3>
+                        <h4 id="beer-brewery"></h4>
+                    </div>
+                    <div class="col-xs-1 col-md-0"></div>
+                </div>
             </div>
         </div>
         <div class="row" id="loader">

@@ -145,6 +145,13 @@ function fetchSpecificBeer() {
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
     }).done(function (response) {
+        console.log(response);
+        var labelUrl = response.response.beer.beer_label;
+        var brewery = response.response.beer.brewery.brewery_name;
+        $('#beer-label').attr('src', labelUrl);
+        $('#beer-name').text(beerName);
+        $('#beer-brewery').text(brewery);
+
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
         if (ratingCount && ratingScore) {
@@ -175,7 +182,7 @@ function fetchPlaylist() {
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
 
-        database.ref().push(searches);   
+        database.ref().push(searches);
     });
 }
 
@@ -187,6 +194,6 @@ database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', funct
     var recentPlaylistCell = $('<td>').html(recentPlaylist);
 
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
-    $('#beer-list').prepend(tableRow); 
+    $('#beer-list').prepend(tableRow);
 });
 
