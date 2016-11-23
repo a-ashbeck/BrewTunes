@@ -174,7 +174,30 @@ function fetchSpecificBeer() {
             if (ratingCount > 200000) {
                 genres = genresTier1;
             }
-            genre = genres[Math.floor(Math.random() * 4)];
+
+            genres = genre;
+            // for (var i = 0; i < 5; i++) {
+            //     if (Math.floor(ratingScore) === 0) {
+            //     	for (var j = 0; j < 5; j++) {
+            //         genres = genres[4];
+            //     }
+            // }};
+            if (Math.floor(ratingScore) === 0) {
+            	genres = genres[4];
+            }
+            if (Math.floor(ratingScore) === 1) {
+            	genres = genres[3];
+            }
+            if (Math.floor(ratingScore) === 2) {
+            	genres = genres[2];
+            }
+            if (Math.floor(ratingScore) === 3) {
+            	genres = genres[1];
+            }
+            if (Math.floor(ratingScore) === 4) {
+            	genres = genres[0];
+            }
+            // genre = genres[Math.floor(Math.random() * 4)];
         }
         fetchPlaylist();
     });
