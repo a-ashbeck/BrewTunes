@@ -151,7 +151,9 @@ function fetchSpecificBeer() {
         $('#beer-name').text(beerName);
         $('#beer-brewery').text(brewery);
         ratingCount = response.response.beer.rating_count;
+        console.log(ratingCount);
         ratingScore = response.response.beer.rating_score;
+        console.log(ratingScore);
         if (ratingCount && ratingScore) {
             var genreObject = {
                 genresTier1: ['rap', 'rock', 'pop', 'country', 'indie'],
@@ -161,16 +163,17 @@ function fetchSpecificBeer() {
                 genresTier5: ['gangsta rap', 'death metal', 'synthpop', 'outlaw country', 'techno']
             };
             var index = Math.floor(ratingScore);
-            if (0 < ratingCount <= 50000) {
+            console.log(index);
+            if (ratingCount > 0 && ratingCount <= 50000) {
                 genre = genreObject.genresTier5[index];
             }
-            if (50000 < ratingCount <= 100000) {
+            if (ratingCount >  50000 && ratingCount <= 100000) {
                 genre = genreObject.genresTier4[index];
             }
-            if (10000 < ratingCount <= 150000) {
+            if (ratingCount >  100000 && ratingCount <= 150000) {
                 genre = genreObject.genresTier3[index];
             }
-            if (150000 < ratingCount <= 200000) {
+            if (ratingCount >  150000 && ratingCount <= 200000) {
                 genre = genreObject.genresTier2[index];
             }
             if (ratingCount > 200000) {
