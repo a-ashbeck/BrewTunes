@@ -97,16 +97,16 @@ function reset() {
     hideNoBeerFoundError();
     hideInvalidCharacterError();
 }
-$(document).on('ready', function () {
+$(document).on('ready', function() {
     reset();
-    $(document).on('click', '#submit', function () {
+    $(document).on('click', '#submit', function() {
         reset(); // for subsequent searches
         input = $('#input-beer').val().trim();
         if (input.match(/^[\w\-\s]+$/)) {
             showLoad();
             animate();
             displayInputBeer();
-            setTimeout(function () {
+            setTimeout(function() {
                 fetchBeers();
             }, 5000);
         } else {
@@ -123,7 +123,7 @@ function fetchBeers() {
         type: 'GET',
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         if (response.response.beers.count === 0) {
             hideLoad();
             showNoBeerFoundError();
@@ -143,55 +143,35 @@ function fetchSpecificBeer() {
         type: 'GET',
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
         if (ratingCount && ratingScore) {
-            genresTier1 = ['rap', 'rock', 'pop', 'country', 'indie'];
-            genresTier2 = ['hip-hop', 'classic rock', 'dance pop', 'bluegrass', 'Jazz'];
-            genresTier3 = ['old school rap', 'rock & roll', 'bubblegum pop', 'traditional country', 'edm'];
-            genresTier4 = ['alternative rap', 'hard rock', 'electro pop', 'alternative country', 'disco'];
-            genresTier5 = ['gangsta rap', 'death metal', 'synthpop', 'outlaw country', 'techno'];
+            var genreObject = {
+                genresTier1: ['rap', 'rock', 'pop', 'country', 'indie'],
+                genresTier2: ['hip-hop', 'classic rock', 'dance pop', 'bluegrass', 'Jazz'],
+                genresTier3: ['old school rap', 'rock & roll', 'bubblegum pop', 'traditional country', 'edm'],
+                genresTier4: ['alternative rap', 'hard rock', 'electro pop', 'alternative country', 'disco'],
+                genresTier5: ['gangsta rap', 'death metal', 'synthpop', 'outlaw country', 'techno']
+            };
+            var index = Math.floor(ratingScore);
             if (0 < ratingCount <= 50000) {
-                genres = genresTier5;
+                genre = genreObject.genresTier5[index];
             }
             if (50000 < ratingCount <= 100000) {
-                genres = genresTier4;
+                genre = genreObject.genresTier4[index];
             }
             if (10000 < ratingCount <= 150000) {
-                genres = genresTier3;
+                genre = genreObject.genresTier3[index];
             }
             if (150000 < ratingCount <= 200000) {
-                genres = genresTier2;
+                genre = genreObject.genresTier2[index];
             }
             if (ratingCount > 200000) {
-                genres = genresTier1;
+                genre = genreObject.genresTier1[index];
             }
-
-            genres = genre;
-            // for (var i = 0; i < 5; i++) {
-            //     if (Math.floor(ratingScore) === 0) {
-            //     	for (var j = 0; j < 5; j++) {
-            //         genres = genres[4];
-            //     }
-            // }};
-            if (Math.floor(ratingScore) === 0) {
-            	genres = genres[4];
-            }
-            if (Math.floor(ratingScore) === 1) {
-            	genres = genres[3];
-            }
-            if (Math.floor(ratingScore) === 2) {
-            	genres = genres[2];
-            }
-            if (Math.floor(ratingScore) === 3) {
-            	genres = genres[1];
-            }
-            if (Math.floor(ratingScore) === 4) {
-            	genres = genres[0];
-            }
-            // genre = genres[Math.floor(Math.random() * 4)];
         }
+        console.log(genre);
         fetchPlaylist();
     });
 }
@@ -201,7 +181,7 @@ function fetchPlaylist() {
         type: 'GET',
         url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         playlistName = response.name;
         playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
         resetFormField();
@@ -218,7 +198,7 @@ function fetchPlaylist() {
         database.ref().push(searches);
     });
 }
-database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function (childSnapshot, prevChildKey) {
+database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
     var recentBeer = childSnapshot.val().beerReturned;
     var recentPlaylist = childSnapshot.val().playlist;
     var tableRow = $('<tr>');
