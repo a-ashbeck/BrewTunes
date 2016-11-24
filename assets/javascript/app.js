@@ -97,7 +97,6 @@ function reset() {
     hideNoBeerFoundError();
     hideInvalidCharacterError();
 }
-
 $(document).on('ready', function () {
     reset();
     $(document).on('click', '#submit', function () {
@@ -145,18 +144,37 @@ function fetchSpecificBeer() {
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
     }).done(function (response) {
-        console.log(response);
         var labelUrl = response.response.beer.beer_label;
         var brewery = response.response.beer.brewery.brewery_name;
         $('#beer-label').attr('src', labelUrl);
         $('#beer-name').text(beerName);
         $('#beer-brewery').text(brewery);
-
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
         if (ratingCount && ratingScore) {
-            genres = ['indie', 'rock', 'country', 'metal'];
-            genre = genres[Math.floor(Math.random() * 4)];
+            var genreObject = {
+                genresTier1: ['country', 'rap', 'rock', 'pop', 'indie'],
+                genresTier2: ['bluegrass', 'hip-hop', 'classic rock', 'dance pop', 'Jazz'],
+                genresTier3: ['traditional country', 'old school rap', 'rock & roll', 'bubblegum pop', 'edm'],
+                genresTier4: ['alternative country', 'alternative rap', 'hard rock', 'electro pop', 'disco'],
+                genresTier5: ['outlaw country', 'gangsta rap', 'death metal', 'techno', 'synthpop']
+            };
+            var index = Math.floor(ratingScore);
+            if (ratingCount > 0 && ratingCount <= 50000) {
+                genre = genreObject.genresTier5[index];
+            }
+            if (ratingCount > 50000 && ratingCount <= 100000) {
+                genre = genreObject.genresTier4[index];
+            }
+            if (ratingCount > 100000 && ratingCount <= 150000) {
+                genre = genreObject.genresTier3[index];
+            }
+            if (ratingCount > 150000 && ratingCount <= 200000) {
+                genre = genreObject.genresTier2[index];
+            }
+            if (ratingCount > 200000) {
+                genre = genreObject.genresTier1[index];
+            }
         }
         fetchPlaylist();
     });
@@ -181,18 +199,15 @@ function fetchPlaylist() {
             playlist: playlistName,
             timestamp: firebase.database.ServerValue.TIMESTAMP
         };
-
         database.ref().push(searches);
     });
 }
-
-database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
+database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function (childSnapshot, prevChildKey) {
     var recentBeer = childSnapshot.val().beerReturned;
     var recentPlaylist = childSnapshot.val().playlist;
     var tableRow = $('<tr>');
     var recentBeerCell = $('<td>').html(recentBeer);
     var recentPlaylistCell = $('<td>').html(recentPlaylist);
-
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
     $('#beer-list').prepend(tableRow);
 });
