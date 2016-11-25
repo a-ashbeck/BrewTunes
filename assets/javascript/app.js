@@ -61,8 +61,14 @@ function setPlaylistURL() {
     $('iframe').attr('src', playlistURL);
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
+
 function displayInputBeer() {
-    $('#entered-beer').html(input);
+    $('#entered-beer').html(toTitleCase(input));
 }
 // Untappd API
 var CLIENTID = 'A9F55BC3824C82CA5DC0FBC018240C4E61ED09A1';
@@ -151,12 +157,13 @@ function fetchSpecificBeer() {
         $('#beer-brewery').text(brewery);
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
+        console.log(ratingCount);
         if (ratingCount && ratingScore) {
             var genreObject = {
-                genresTier1: ['country', 'rap', 'rock', 'pop', 'indie'],
-                genresTier2: ['bluegrass', 'hip-hop', 'classic rock', 'dance pop', 'Jazz'],
-                genresTier3: ['traditional country', 'old school rap', 'rock & roll', 'bubblegum pop', 'edm'],
-                genresTier4: ['alternative country', 'alternative rap', 'hard rock', 'electro pop', 'disco'],
+                genresTier1: ['country', 'rap', 'pop', 'rock', 'indie'],
+                genresTier2: ['hip-hop', 'dance pop', 'bluegrass', 'classic rock', 'Jazz'],
+                genresTier3: ['bubblegum pop', 'traditional country', 'old school rap', 'rock & roll', 'edm'],
+                genresTier4: ['alternative country', 'alternative rap', 'electro pop', 'hard rock', 'disco'],
                 genresTier5: ['outlaw country', 'gangsta rap', 'death metal', 'techno', 'synthpop']
             };
             var index = Math.floor(ratingScore);
@@ -175,6 +182,8 @@ function fetchSpecificBeer() {
             if (ratingCount > 200000) {
                 genre = genreObject.genresTier1[index];
             }
+            console.log(index);
+            console.log(genre);
         }
         fetchPlaylist();
     });
@@ -211,4 +220,3 @@ database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', funct
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
     $('#beer-list').prepend(tableRow);
 });
-
