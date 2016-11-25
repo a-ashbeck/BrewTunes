@@ -97,16 +97,16 @@ function reset() {
     hideNoBeerFoundError();
     hideInvalidCharacterError();
 }
-$(document).on('ready', function () {
+$(document).on('ready', function() {
     reset();
-    $(document).on('click', '#submit', function () {
+    $(document).on('click', '#submit', function() {
         reset(); // for subsequent searches
         input = $('#input-beer').val().trim();
         if (input.match(/^[\w\-\s]+$/)) {
             showLoad();
             animate();
             displayInputBeer();
-            setTimeout(function () {
+            setTimeout(function() {
                 fetchBeers();
             }, 5000);
         } else {
@@ -123,7 +123,7 @@ function fetchBeers() {
         type: 'GET',
         url: queryURL(initialQueryString(input.replace(' ', '+'))),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         if (response.response.beers.count === 0) {
             hideLoad();
             showNoBeerFoundError();
@@ -143,7 +143,7 @@ function fetchSpecificBeer() {
         type: 'GET',
         url: queryURL(specificQueryString(beerID)),
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         var labelUrl = response.response.beer.beer_label;
         var brewery = response.response.beer.brewery.brewery_name;
         $('#beer-label').attr('src', labelUrl);
@@ -185,7 +185,7 @@ function fetchPlaylist() {
         type: 'GET',
         url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
         dataType: 'json'
-    }).done(function (response) {
+    }).done(function(response) {
         playlistName = response.name;
         playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
         resetFormField();
@@ -202,7 +202,7 @@ function fetchPlaylist() {
         database.ref().push(searches);
     });
 }
-database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function (childSnapshot, prevChildKey) {
+database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
     var recentBeer = childSnapshot.val().beerReturned;
     var recentPlaylist = childSnapshot.val().playlist;
     var tableRow = $('<tr>');
@@ -211,4 +211,3 @@ database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', funct
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
     $('#beer-list').prepend(tableRow);
 });
-
