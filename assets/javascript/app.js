@@ -29,6 +29,10 @@ function hideLoad() {
     $('#loader').hide();
 }
 
+function showNoBeerFoundError() {
+    $('#no-beer-error').show();
+}
+
 function hideNoBeerFoundError() {
     $('#no-beer-error').hide();
 }
@@ -37,20 +41,16 @@ function hideInvalidCharacterError() {
     $('#invalid-character-error').hide();
 }
 
+function showInvalidCharacterError() {
+    $('#invalid-character-error').show();
+}
+
 function showPlaylist() {
     $('#playlist').show();
 }
 
 function showLoad() {
     $('#loader').show();
-}
-
-function showNoBeerFoundError() {
-    $('#no-beer-error').show();
-}
-
-function showInvalidCharacterError() {
-    $('#invalid-character-error').show();
 }
 
 function resetFormField() {
@@ -114,9 +114,12 @@ $(document).on('ready', function () {
             displayInputBeer();
             setTimeout(function () {
                 fetchBeers();
-            }, 5000);
+            }, 3000);
         } else {
             showInvalidCharacterError();
+            setInterval(function () {
+                hideInvalidCharacterError();
+            }, 10000);
             resetFormField();
             hidePlaylist();
         }
@@ -133,6 +136,9 @@ function fetchBeers() {
         if (response.response.beers.count === 0) {
             hideLoad();
             showNoBeerFoundError();
+            setInterval(function () {
+                hideNoBeerFoundError();
+            }, 10000);
             resetFormField();
             hidePlaylist();
             $('#form-row').show();
