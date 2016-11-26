@@ -26,7 +26,7 @@ function hidePlaylist() {
 }
 
 function hideLoad() {
-    $('#load').hide();
+    $('#loader').hide();
 }
 
 function hideNoBeerFoundError() {
@@ -42,7 +42,7 @@ function showPlaylist() {
 }
 
 function showLoad() {
-    $('#load').show();
+    $('#loader').show();
 }
 
 function showNoBeerFoundError() {
@@ -135,6 +135,7 @@ function fetchBeers() {
             showNoBeerFoundError();
             resetFormField();
             hidePlaylist();
+            $('#form-row').show();
         } else {
             var beer = response.response.beers.items[0];
             beerID = beer.beer.bid;
