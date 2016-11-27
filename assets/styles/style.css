@@ -16,10 +16,6 @@ iframe {
     overflow-y: scroll !important;
 }
 
-#beer-instructions {
-    text-align: center;
-}
-
 /* loading screen */
 
 @import url(http://fonts.googleapis.com/css?family=Lato:700,900);

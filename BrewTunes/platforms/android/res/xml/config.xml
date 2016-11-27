@@ -4,7 +4,11 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>BrewTUnes</name>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>BrewTunes</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -23,4 +27,6 @@
     <splash height="480" src="res/mipmap-mdpi/icon.png" width="320" />
     <allow-intent href="*" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="splash-screen" value="screen" />
+    <preference name="splash-screen-delay" value="3000" />
 </widget>

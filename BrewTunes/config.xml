@@ -1,14 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- <cordova>
-    <access origin="beertunes-36bca.firebaseapp.com*"/>
-    <access origin="https://beertunes-36bca.firebaseio.com*"/>
-    <access origin="beertunes-36bca.appspot.com*"/>
-    <access origin="https://api.untappd.com/*"/>
-    <access origin="https://rocky-island-57117.herokuapp.com*"/>
-    <access origin="*" launch-external="yes"/>
-</cordova> -->
 <widget id="com.brewtunes" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>BrewTUnes</name>
+    <name>BrewTunes</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -26,6 +18,8 @@
     <allow-intent href="geo:*" />
     <icon src="res/mipmap-mdpi/icon.png" />
     <splash src="res/mipmap-mdpi/icon.png" width="320" height="480"/>
+    <preference name="splash-screen" value="screen"/>
+    <preference name="splash-screen-delay" value="3000"/>
     <platform name="android">
         <allow-intent href="*" />
     </platform>
