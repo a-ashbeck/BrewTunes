@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<cordova><!-- 
+<!-- <cordova>
     <access origin="beertunes-36bca.firebaseapp.com*"/>
     <access origin="https://beertunes-36bca.firebaseio.com*"/>
     <access origin="beertunes-36bca.appspot.com*"/>
     <access origin="https://api.untappd.com/*"/>
-    <access origin="https://rocky-island-57117.herokuapp.com*"/> -->
+    <access origin="https://rocky-island-57117.herokuapp.com*"/>
     <access origin="*" launch-external="yes"/>
-</cordova>
+</cordova> -->
 <widget id="com.brewtunes" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>BrewTUnes</name>
     <description>
@@ -24,6 +24,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="res/mipmap-mdpi/icon.png" />
+    <splash src="res/mipmap-mdpi/icon.png" width="320" height="480"/>
     <platform name="android">
         <allow-intent href="*" />
     </platform>
