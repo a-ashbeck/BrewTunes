@@ -67,7 +67,7 @@ function toTitleCase(str) {
     });
 }
 
-function displayInputBeer() {
+function displayInputBeer(input) {
     $('#entered-beer').html(toTitleCase(input));
 }
 // Untappd API
@@ -111,13 +111,13 @@ $(document).on('ready', function () {
         if (input.match(/^[\w\-\s]+$/)) {
             showLoad();
             animate();
-            displayInputBeer();
+            displayInputBeer(input);
             setTimeout(function () {
                 fetchBeers();
             }, 3000);
         } else {
             showInvalidCharacterError();
-            setInterval(function () {
+            setTimeout(function () {
                 hideInvalidCharacterError();
             }, 10000);
             resetFormField();
@@ -136,7 +136,7 @@ function fetchBeers() {
         if (response.response.beers.count === 0) {
             hideLoad();
             showNoBeerFoundError();
-            setInterval(function () {
+            setTimeout(function () {
                 hideNoBeerFoundError();
             }, 10000);
             resetFormField();
@@ -164,7 +164,6 @@ function fetchSpecificBeer() {
         $('#beer-brewery').text(brewery);
         ratingCount = response.response.beer.rating_count;
         ratingScore = response.response.beer.rating_score;
-        console.log(ratingCount);
         if (ratingCount && ratingScore) {
             var genreObject = {
                 genresTier1: ['country', 'rap', 'pop', 'rock', 'indie'],
@@ -189,8 +188,6 @@ function fetchSpecificBeer() {
             if (ratingCount > 200000) {
                 genre = genreObject.genresTier1[index];
             }
-            console.log(index);
-            console.log(genre);
         }
         fetchPlaylist();
     });

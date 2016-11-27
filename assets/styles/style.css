@@ -13,7 +13,6 @@ input {
     font-size: 13px;
 }
 
-
 iframe {
     margin-bottom: 50px;
     margin-top: 10px;
@@ -23,14 +22,13 @@ iframe {
     margin-top: 10px;
     margin-bottom: 50px;
     font-weight: normal;
-
 }
 
 #beer-name {
     margin-top: 10px;
     margin-bottom: 10px;
-    color:#edaf32; 
-    font-weight: bold; 
+    color: #edaf32;
+    font-weight: bold;
 }
 
 #beer-brewery {
@@ -41,6 +39,7 @@ iframe {
     height: 250px;
     overflow-y: scroll !important;
 }
+
 
 /* loading screen */
 
