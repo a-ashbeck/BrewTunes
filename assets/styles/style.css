@@ -177,3 +177,12 @@ iframe {
 .is-animated .beer-foam {
     animation: foam-show 3000ms infinite
 }
+
+.jumbotron.footer {
+    margin-top: 80px;
+    height: 110px;
+}
+
+.jumbotron.footer p {
+    margin-bottom: 0px;
+}
