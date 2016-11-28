@@ -28,7 +28,7 @@ function hidePlaylist() {
 
 //hide the loading animation
 function hideLoad() {
-    $('#load').hide();
+    $('#loader').hide();
 }
 
 //hide the No Beer error message until it is needed
@@ -48,7 +48,7 @@ function showPlaylist() {
 
 //show the loading animation
 function showLoad() {
-    $('#load').show();
+    $('#loader').show();
 }
 
 //show the No Beer error if beer cannot be found
@@ -207,7 +207,7 @@ function fetchPlaylist() {
         type: 'GET',
         url: 'https://rocky-island-57117.herokuapp.com/api/playlists?genre=' + genre,
         dataType: 'json'
-        //Returns playlist info, stops the loading animation, stores values in the Firebase database, and displays playlist
+    //Returns playlist info, stops the loading animation, stores values in the Firebase database, and displays playlist
     }).done(function(response) {
         playlistName = response.name;
         playlistURL = response.external_urls.spotify.replace('http://open.', 'https://embed.');
