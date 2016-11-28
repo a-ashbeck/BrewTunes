@@ -70,10 +70,16 @@ function resetFormField() {
 function setPlaylistURL() {
     $('iframe').attr('src', playlistURL);
 }
+//capitalizes first letter of each word inputed 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
 
 //shows the name of the beer that was input
-function displayInputBeer() {
-    $('#entered-beer').html(input);
+function displayInputBeer(input) {
+    $('#entered-beer').html(toTitleCase(input));
 }
 // Untappd API Key
 var CLIENTID = 'A9F55BC3824C82CA5DC0FBC018240C4E61ED09A1';
@@ -123,12 +129,15 @@ $(document).on('ready', function() {
         if (input.match(/^[\w\-\s]+$/)) {
             showLoad();
             animate();
-            displayInputBeer();
+            displayInputBeer(input);
             setTimeout(function() {
                 fetchBeers();
-            }, 5000);
+            }, 3000);
         } else {
             showInvalidCharacterError();
+            setTimeout(function () {
+              hideInvalidCharacterError();
+          }, 10000);
             resetFormField();
             hidePlaylist();
         }
@@ -147,6 +156,9 @@ function fetchBeers() {
             stopAnimate();
             hideLoad();
             showNoBeerFoundError();
+            setTimeout(function () {
+              hideNoBeerFoundError();
+          }, 10000);
             resetFormField();
             hidePlaylist();
         } else {
@@ -175,10 +187,10 @@ function fetchSpecificBeer() {
         if (ratingCount && ratingScore) {
             //object that holds the tiers of genres, which based on beer popularity, returns a playlist with a similar level of popularity
             var genreObject = {
-                genresTier1: ['country', 'rap', 'rock', 'pop', 'indie'],
-                genresTier2: ['bluegrass', 'hip-hop', 'classic rock', 'dance pop', 'Jazz'],
-                genresTier3: ['traditional country', 'old school rap', 'rock & roll', 'bubblegum pop', 'edm'],
-                genresTier4: ['alternative country', 'alternative rap', 'hard rock', 'electro pop', 'disco'],
+                genresTier1: ['country', 'rap', 'pop', 'rock', 'indie'],
+                genresTier2: ['jazz', 'dance pop', 'bluegrass', 'classic rock', 'hip-hop'],
+                genresTier3: ['bubblegum pop', 'traditional country', 'old school rap', 'rock & roll', 'edm'],
+                genresTier4: ['alternative country', 'alternative rap', 'electro pop', 'hard rock', 'disco'],
                 genresTier5: ['outlaw country', 'gangsta rap', 'death metal', 'techno', 'synthpop']
             };
             var index = Math.floor(ratingScore);
