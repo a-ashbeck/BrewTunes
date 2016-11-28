@@ -144,6 +144,7 @@ function fetchBeers() {
         dataType: 'json'
     }).done(function(response) {
         if (response.response.beers.count === 0) {
+            stopAnimate();
             hideLoad();
             showNoBeerFoundError();
             resetFormField();
