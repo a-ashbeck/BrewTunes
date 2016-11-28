@@ -235,6 +235,4 @@ database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', funct
     //Displays the last 10 searches
     tableRow.append(recentBeerCell).append(recentPlaylistCell);
     $('#beer-list').prepend(tableRow);
-    //Displays the most recent beer search as the placeholder text
-    $("#input-beer").attr("placeholder", recentBeer).focus().blur();
 });
