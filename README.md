@@ -4,7 +4,7 @@
 
 ### The App
 
-#### Your First & Best Choice at Beer and Music Pairings
+#### The perfect playlist for your preferred pour
 
 It's simple - enter a beer, get a playlist!
 
