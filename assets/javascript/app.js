@@ -70,7 +70,7 @@ function resetFormField() {
 function setPlaylistURL() {
     $('iframe').attr('src', playlistURL);
 }
-//capitalizes first letter of each word inputed 
+//capitalizes first letter of each word inputed
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -122,11 +122,11 @@ function reset() {
 }
 $(document).on('ready', function() {
     reset();
-    //Prepares the site with the loading screen, beer glass animation, beer splay, and error meesages on page load
+    //Prepares the site with the loading screen, beer glass animation, beer splay, and error messages on page load
     $(document).on('click', '#submit', function() {
         reset(); // for subsequent searches
         input = $('#input-beer').val().trim();
-        if (input.match(/^[\w\-\s]+$/)) {
+        if (input.match(/^[\w\-\s\']+$/)) {
             showLoad();
             animate();
             displayInputBeer(input);
