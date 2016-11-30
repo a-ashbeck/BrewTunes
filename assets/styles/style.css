@@ -170,9 +170,18 @@ iframe {
     animation: foam-show 3000ms infinite
 }
 
+/*Sticky Footer*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 58px;
+}
+
 .footer { 
     margin-bottom: 0;
-    margin-top: 10px;
+    margin-top: 20px;
     position: absolute;
     bottom: 0;
     width: 100%;
