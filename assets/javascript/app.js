@@ -238,6 +238,7 @@ function fetchPlaylist() {
         database.ref().push(searches);
     });
 }
+
 //Grabs the 10 most recent beer searches and their playlists
 database.ref().orderByChild('timestamp').limitToLast(10).on('child_added', function(childSnapshot, prevChildKey) {
     var recentBeer = childSnapshot.val().beerReturned;
