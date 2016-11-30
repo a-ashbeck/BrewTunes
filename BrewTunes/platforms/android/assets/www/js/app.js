@@ -70,7 +70,7 @@ function resetFormField() {
 function setPlaylistURL() {
     $('iframe').attr('src', playlistURL);
 }
-//capitalizes first letter of each word inputed 
+//capitalizes first letter of each word inputed
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -126,7 +126,7 @@ $(document).on('ready', function() {
     $(document).on('click', '#submit', function() {
         reset(); // for subsequent searches
         input = $('#input-beer').val().trim();
-        if (input.match(/^[\w\-\s]+$/)) {
+        if (input.match(/^[\w\-\s\']+$/)) {
             showLoad();
             animate();
             displayInputBeer(input);
