@@ -11,7 +11,7 @@ It's simple - enter a beer, get a playlist!
 The application is designed as an Android mobile app and as a mobile-first web app.
 
 * Click [here](https://drive.google.com/open?id=0B3OgkN6QeIoTamFHWFBqMnFFMTA) for the Android .apk.
-* Click [here](https://immense-atoll-33057.herokuapp.com/) for the web app.
+* Click [here](https://brewtunes.herokuapp.com/) for the web app.
 
 ### The Players
 
